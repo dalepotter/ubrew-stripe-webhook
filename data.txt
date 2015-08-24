@@ -1,0 +1,77 @@
+{
+  "id": "evt_16dRkcBzGEWqcyL5rV6SCm46",
+  "created": 1440448866,
+  "livemode": false,
+  "type": "charge.succeeded",
+  "data": {
+    "object": {
+      "id": "ch_16dRkcBzGEWqcyL5FM93lxVH",
+      "object": "charge",
+      "created": 1440448866,
+      "livemode": false,
+      "paid": true,
+      "status": "succeeded",
+      "amount": 1000,
+      "currency": "gbp",
+      "refunded": false,
+      "source": {
+        "id": "card_16dRkcBzGEWqcyL54SKrEwJ1",
+        "object": "card",
+        "last4": "4242",
+        "brand": "Visa",
+        "funding": "credit",
+        "exp_month": 8,
+        "exp_year": 2016,
+        "fingerprint": "YgFkpo0sJqFpdd8Z",
+        "country": "US",
+        "name": null,
+        "address_line1": null,
+        "address_line2": null,
+        "address_city": null,
+        "address_state": null,
+        "address_zip": null,
+        "address_country": null,
+        "cvc_check": "pass",
+        "address_line1_check": null,
+        "address_zip_check": null,
+        "tokenization_method": null,
+        "dynamic_last4": null,
+        "metadata": {
+        },
+        "customer": null
+      },
+      "captured": true,
+      "balance_transaction": "txn_16dRkcBzGEWqcyL5aEhJOG0b",
+      "failure_message": null,
+      "failure_code": null,
+      "amount_refunded": 0,
+      "customer": null,
+      "invoice": null,
+      "description": "UBrew Membership (Greenwich)",
+      "dispute": null,
+      "metadata": {
+      },
+      "statement_descriptor": null,
+      "fraud_details": {
+      },
+      "receipt_email": null,
+      "receipt_number": null,
+      "shipping": null,
+      "destination": null,
+      "application_fee": null,
+      "refunds": {
+        "object": "list",
+        "total_count": 0,
+        "has_more": false,
+        "url": "/v1/charges/ch_16dRkcBzGEWqcyL5FM93lxVH/refunds",
+        "data": [
+
+        ]
+      }
+    }
+  },
+  "object": "event",
+  "pending_webhooks": 1,
+  "request": "req_6rA4X6zp7oiCYF",
+  "api_version": "2015-08-19"
+}
