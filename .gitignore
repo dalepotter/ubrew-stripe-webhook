@@ -1,0 +1,6 @@
+# Ignore software dependencies
+vendor/*
+
+# Ignore config file containing Stripe API key
+configStripe,php
+
