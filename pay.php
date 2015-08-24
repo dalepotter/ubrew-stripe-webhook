@@ -77,9 +77,9 @@ if ($_POST) {
             </div>
             <div class="form-row">
                 <label>Expiration (MM/YYYY)</label>
-                <input type="text" size="2" name= "cardExpiryMonth" class="card-expiry-month" value="01" />
+                <input type="text" size="2" name="cardExpiryMonth" class="card-expiry-month" value="01" />
                 <span> / </span>
-                <input type="text" size="4" name= "CardExpiryYear" class="card-expiry-year" value="2016" />
+                <input type="text" size="4" name="cardExpiryYear" class="card-expiry-year" value="16" />
             </div>
             <div class="form-row">
                 <label>Which location?</label>
