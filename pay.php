@@ -35,14 +35,14 @@ if ($_POST) {
       // Make the API call to create the payment
       \Stripe\Charge::create(array("amount" => 1000,  // £10.00
                                    "currency" => "gbp",
-                                    "source" => array(
+                                   "source" => array(
                                                       "number" => $_POST['cardNumber'],
-                                                      "exp_month" => 8,
-                                                      "exp_year" => 2016,
-                                                      "cvc" => "314"
+                                                      "exp_month" => $_POST['cardExpiryMonth'],
+                                                      "exp_year" => $_POST['cardExpiryYear'],
+                                                      "cvc" => $_POST['cardCcv']
                                                      ),
-                                    "description" => "UBrew Membership (Greenwich)",
-                                    ));
+                                   "description" => "UBrew Membership (" . $_POST['location'] . ")",
+                                   ));
           // Set new success message
           $success = 'Your payment was successful.';
       }
@@ -62,26 +62,31 @@ if ($_POST) {
 
     </head>
     <body>
-        <h1>Charge $10 with Stripe</h1>
+        <h1>Sign-up to UBrew</h1>
         <!-- to display errors returned by createToken -->
         <span class="payment-errors"><?= $error ?></span>
         <span class="payment-success"><?= $success ?></span>
         <form action="<?= $_SERVER['PHP_SELF']  ?>" method="post" id="payment-form">
             <div class="form-row">
                 <label>Card Number</label>
-                <input type="text" size="20" autocomplete="off" name="cardNumber" class="card-number" />
+                <input type="text" size="20" autocomplete="off" name="cardNumber" class="card-number" value="4242424242424242" />
             </div>
             <div class="form-row">
                 <label>CVC</label>
-                <input type="text" size="4" autocomplete="off" class="card-cvc" />
+                <input type="text" size="4" autocomplete="off" name="cardCcv" class="card-cvc" value="123" />
             </div>
             <div class="form-row">
                 <label>Expiration (MM/YYYY)</label>
-                <input type="text" size="2" class="card-expiry-month"/>
+                <input type="text" size="2" name= "cardExpiryMonth" class="card-expiry-month" value="01" />
                 <span> / </span>
-                <input type="text" size="4" class="card-expiry-year"/>
+                <input type="text" size="4" name= "CardExpiryYear" class="card-expiry-year" value="2016" />
             </div>
-            <button type="submit" class="submit-button">Submit Payment</button>
+            <div class="form-row">
+                <label>Which location?</label>
+                <input type="radio" name="location" value="Greenwich">Greenwich
+                <input type="radio" name="location" value="Dalston">Dalston
+            </div>
+            <button type="submit" class="submit-button">Join us!</button>
         </form>
     </body>
 </html>
