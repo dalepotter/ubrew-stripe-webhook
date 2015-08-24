@@ -1,4 +1,5 @@
 <?php
+// Turn on error messages (for debugging)
 ini_set('display_startup_errors',1);
 ini_set('display_errors',1);
 error_reporting(-1);
@@ -10,40 +11,46 @@ error_reporting(-1);
 // via FTP) replace the following line with: require 'path-to-Stripe.php';
 require 'vendor/autoload.php';
 
-// Include the config file
+// Include the Stripe config file
 require 'configStripe.php';
 
-// If this page has received a data from the form, process it
+// Set default success and error messages
+$error = '';
+$success = '';
+
+// If this page has received card data from the form, process it
 if ($_POST) {
     // Set Stripe API key
     \Stripe\Stripe::setApiKey(stripeApiKey); // 'stripeApiKey' is defined in configStripe.php
-  
-    // Set default values
-    $error = '';
-    $success = '';
-print_r($_POST);
+
+    // Print all form data (for debugging)
+    print_r($_POST);
+    
     // Attempt to process the payment, based on the information sent to this page
     try {
       if (!isset($_POST['cardNumber'])){
           throw new Exception("The Stripe Token was not generated correctly");
       } 
 
-          // Make the API call to create the payment
-          \Stripe\Charge::create(array("amount" => 1000,
-                                      "currency" => "gbp",
-                                      "source" => array(
-                                                        "number" => $_POST['cardNumber'],
-                                                        "exp_month" => 8,
-                                                        "exp_year" => 2016,
-                                                        "cvc" => "314"
-                                                       ),
-                                      "description" => "UBrew membership Greenwich",
-                                      ));
+      // Make the API call to create the payment
+      \Stripe\Charge::create(array("amount" => 1000,  // £10.00
+                                   "currency" => "gbp",
+                                    "source" => array(
+                                                      "number" => $_POST['cardNumber'],
+                                                      "exp_month" => 8,
+                                                      "exp_year" => 2016,
+                                                      "cvc" => "314"
+                                                     ),
+                                    "description" => "UBrew Membership (Greenwich)",
+                                    ));
+          // Set new success message
           $success = 'Your payment was successful.';
       }
-    catch (Exception $e) {
-        $error = $e->getMessage();
-    }
+      catch (Exception $e) {
+          // If this brace is entered, there has been an error!
+          // Set error message to be the error returned
+          $error = $e->getMessage();
+      }
 }
 
 // Output HTML for the payment form
