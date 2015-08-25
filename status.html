@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </head>
+    <body>
+    	<h1>Current UBrew membership numbers</h1>
+    	<p>
+    		<strong>Greenwich: </strong> <span id="greenwich">0</span><br/>
+    		<strong>Dalston: </strong> <span id="dalston">0</span>
+    	</p>
+
+    	<script>
+    		// Callback function to update the HTML
+    	    function UBrewMembershipStatus(data) { 
+    	    	$('span#greenwich').html(data.greenwich);
+    	    	$('span#dalston').html(data.dalston);
+    	    }
+
+    		$(document).ready(function(){
+
+    		   // Define a function to use AJAX to get the latest membership data
+			   function loadMembershipNumbers()
+			   {
+				    $.ajax({
+							  type: "GET",
+							  url: "http://81.4.109.115/ubrew-stripe-webhook/getNumbers.php?&callback=",
+							  cache: false,
+							  jsonp: false,
+							  dataType: 'text',
+							  jsonpCallback: "UBrewMembershipStatus",
+							  success: function(data){
+							    data = eval(data);
+							    return data;
+							  },
+							});
+				}
+				
+				// Run function to update membership status every 5 seconds
+				window.setInterval(function(){
+					loadMembershipNumbers();
+				}, 5000);
+
+			});
+    	</script>
+    </body>
+</html>
