@@ -24,22 +24,39 @@ $body = @file_get_contents('php://input');
 $body = preg_replace('#\[\s+#', '[', $body);
 $eventJson = json_decode(utf8_encode($body), true);
 
+// If there is no data in $body, send this user away
+// This probably isn't essential, but is probably a good idea for security!
+if (is_null($body)){
+	echo "Nothing to see here!";
+	exit();
+}
+
 // For extra security, retrieve from the Stripe API
 $event_id = $eventJson['id'];
 $event = \Stripe\Event::retrieve($event_id);
 
 // Store transaction data in 'data.txt' (This overwrites any existing data in the file)
 file_put_contents('data.txt', $body);
-file_put_contents('data1.txt', $eventJson['id']);
 
 // Increment the number of memberships for either Greenwich or Dalston depending on the description
   if (find_in_string('Greenwich', $event->data->object['description'])){
-     $numberMembershipsGreenwich = file_get_contents('greenwichNumber.txt');
+     // Read the current number of memberships for Greenwich
+     $numberMembershipsGreenwich = intval(file_get_contents('greenwichNumber.txt'));
+     
+     // Increment the number of memberships for Greenwich by 1
      $newNumberMembershipsGreenwich = $numberMembershipsGreenwich + 1;
+
+     // Rewrite the new number to a file
      file_put_contents('greenwichNumber.txt', $newNumberMembershipsGreenwich);
+
   } elseif (find_in_string('Dalston', $event->data->object['description'])){
-     $numberMembershipsDalston = file_get_contents('dalstonNumber.txt');
+     // Read the current number of memberships for Dalston
+     $numberMembershipsDalston = intval(file_get_contents('dalstonNumber.txt'));
+     
+	 // Increment the number of memberships for Dalston by 1
      $newNumberMembershipsDalston = $numberMembershipsDalston + 1;
+
+     // Rewrite the new number to a file
      file_put_contents('dalstonNumber.txt', $newNumberMembershipsDalston);
   }
 
