@@ -88,5 +88,7 @@ if ($_POST) {
             </div>
             <button type="submit" class="submit-button">Join us!</button>
         </form>
+
+        <a href="status.html" target="_blank">Open the status page in a new window to see changes to membership numbers!</a>
     </body>
 </html>
