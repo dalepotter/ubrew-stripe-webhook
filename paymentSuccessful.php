@@ -39,7 +39,7 @@ file_put_contents('data1.txt', $eventJson['id']);
      file_put_contents('greenwichNumber.txt', $newNumberMembershipsGreenwich);
   } elseif (find_in_string('Dalston', $event->data->object['description'])){
      $numberMembershipsDalston = file_get_contents('dalstonNumber.txt');
-     $newNumberMembershipsDalston = $numberMembershipsDalson + 1;
+     $newNumberMembershipsDalston = $numberMembershipsDalston + 1;
      file_put_contents('dalstonNumber.txt', $newNumberMembershipsDalston);
   }
 
